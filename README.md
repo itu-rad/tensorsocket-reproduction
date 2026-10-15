@@ -70,20 +70,27 @@ We ran this package end to end on the paper's H100 server: 1× H100 PCIe 80 GB, 
 * The AWS g5 instances were emulated by restricting the container to 8, 16 and 32 CPUs.
 * All figures and tables of these runs are in `validation/h100_xena2_fast/` and `validation/h100_xena2_full/` (`REPORT.md` has every number next to the paper's).
 
-| Item | Paper | Validation run (H100 server) |
-|---|---|---|
-| Fig. 10 flexible batching | 2,328 vs 2,332 samples/s; CPU 45 → 47% | 2,309 vs 2,218 samples/s; CPU 50 → 57% |
-| Fig. 12 DALL-E 2, sharing gain at 2/4-way | 10–15% | +7% / +10% (full mode) |
-| Fig. 15 TensorSocket per model, 1 → 4 / 8 models | 1,142 → 1,113 / 965 | 1,599 → 1,555 / 879 (full mode) |
-| Fig. 15 baseline per model, 1 → 8 models | 1,128 → 138 | 1,561 → 209 (full mode) |
-| Fig. 15 Joader per model, 1 → 4 / 8 models (8 CPUs, like the others) | 984 → 438 / 287 | 1,324 → 614 / 331 (fast mode) |
-| Fig. 11 CLMR 4-way, shared at 8 vCPUs vs non-shared at 32 | equal (~50–59 samples/s) | 117–126 vs 116–118 samples/s |
-| Fig. 13 aggregate, shared g5.2xlarge vs non-shared g5.4xlarge | 1,365 vs 1,548 samples/s | 1,840 vs 2,137 samples/s |
-| Fig. 14 stand-in, per-model throughput at 2/3/4 models (baseline; TensorSocket) | 0.51/0.35/0.29; ≈1.0 | 0.46/0.29/0.21; 1.00/0.94/0.95 |
-| Fig. 14 stand-in, CoorDL per-job throughput at 2/3/4 jobs (`fig14-coordl-1gpu`) | ≈1.0 (one job per GPU) | 0.83/0.54/0.38 (all jobs on one GPU) |
-| Fig. 8 stand-in, CPU utilization non-shared → shared | ~3× lower (e.g. ResNet18 99 → 30%) | 2–3× lower (e.g. ResNet18 45 → 22%) |
-| Table 3 stand-in, disk I/O non-shared → shared | 613 → 161 MB/s | 269 → 76 MB/s |
-| Table 4 stand-in, tokens/s per model, baseline vs shared | 7.5k vs 7.5k | 4.9k vs 4.9k |
+| | Claim | Paper | Ours | |
+|---|---|---|---|---|
+| Fig. 8 | Sharing lowers CPU use | ResNet18 99 → 30% | 45 → 22% | ✅ |
+| Fig. 8 | Sharing raises throughput | ResNet18 +11%, MobileNet S ~2× | MobileNet S +33% | needs 4 GPUs |
+| Fig. 9 | MobileNet S holds up under collocation, 4-way | 3,824 vs 2,060 | 1,820 vs 1,368 | ✅ |
+| Tab. 3 | Sharing cuts disk I/O (MB/s) | 613 → 161 | 269 → 76 | ✅ |
+| Tab. 3, 4 | PCIe/NVLink traffic per GPU | per GPU | – | needs 4 GPUs |
+| Tab. 4 | LLM tokens/s, baseline vs shared | 7.5k vs 7.5k | 4.9k vs 4.9k | ✅ |
+| Fig. 10 | Flexible batching keeps throughput | 2,328 vs 2,332 | 2,309 vs 2,218 | ✅ |
+| Fig. 11 | Shared at 8 vCPUs ≈ non-shared at 32 | ~50–59 both | 117–126 vs 116–118 | ✅ |
+| Fig. 12 | DALL-E 2 sharing gain, 2/4-way | 10–15% | +7% / +10% | ✅ |
+| Fig. 13 | Shared g5.2xl ≈ non-shared g5.4xl | 88% | 86% | ✅ |
+| Fig. 14 | Baseline per model at 2/3/4 | 0.51/0.35/0.29 | 0.46/0.29/0.21 | ✅ |
+| Fig. 14 | TensorSocket per model at 2/3/4 | ≈1.0 | 1.00/0.94/0.95 | ✅ |
+| Fig. 14 | Extra CPU at 4 jobs, TS vs CoorDL | 1.18× vs 1.57× | 1.48× vs 1.61× | ✅ |
+| Fig. 14 | CoorDL per job at 2/3/4 | ≈1.0 | 0.83/0.54/0.38 | needs 4 GPUs |
+| Fig. 15 | TensorSocket per model, 1 → 4 / 8 | 1,142 → 1,113 / 965 | 1,599 → 1,555 / 879 | ✅ |
+| Fig. 15 | Baseline per model, 1 → 8 | 1,128 → 138 | 1,561 → 209 | ✅ |
+| Fig. 15 | Joader per model, 1 → 4 / 8 | 984 → 438 / 287 | 1,324 → 614 / 331 | ✅ |
+
+14 of 17 rows are confirmed (✅). The other 3 need one GPU per model, as on the paper's 4-GPU A100 server, and cannot be validated on a single GPU (Section 8.1). "Ours" is fast mode except Fig. 12 and Fig. 15 (baseline, TensorSocket), which are full mode; throughput is in samples/s unless stated.
 
 Notes:
 
@@ -124,7 +131,7 @@ On the DGX Station A100, GPU index 3 is the display GPU, so the original schedul
 
 * Linux x86-64 with an NVIDIA driver ≥ 535 (CUDA 12.1 wheels; the LLM image's PyTorch 2.5.1 also runs on 535).
 * Docker ≥ 24 with the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html). Check with `docker run --rm --gpus all nvidia/cuda:12.1.1-base-ubuntu22.04 nvidia-smi`. If Docker answers that `--gpus` is not supported and asks for `--runtime=nvidia`, set `export DOCKER_GPU_ARGS="--runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=all"`.
-* About 60 GB of disk for the images and about 400 GB for the datasets (ImageNet, the Joader LMDB copy, LibriSpeech, CC3M subset, Qwen).
+* About 60 GB of disk for the images, plus Docker's build cache, which can grow by tens of GB during builds (`docker builder prune` frees it afterwards). About 400 GB for the datasets (ImageNet, the Joader LMDB copy, LibriSpeech, CC3M subset, Qwen).
 
 ### 3.2 Images
 
@@ -409,6 +416,8 @@ workloads/joader/             Joader server launch, registration, LMDB conversio
 datasets/                     dataset preparation scripts
 paper_results/                the paper's values for comparison
 validation/                   our validation runs on the H100 server (figures + REPORT.md)
+LICENSE                       Apache License 2.0
+NOTICE                        third-party code in this repository and its licenses
 ```
 
 ## 10. Troubleshooting
