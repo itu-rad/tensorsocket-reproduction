@@ -150,7 +150,7 @@ All images are defined in `docker/Dockerfile` (one build target each). The CoorD
 
 Every image except `coordl` contains:
 
-* TensorSocket [0.0.5](https://pypi.org/project/tensorsocket/0.0.5/) from PyPI (commit [`ee231a2`](https://github.com/itu-rad/tensorsocket/commit/ee231a2449e7aa513a4c14fab7f1b35257cdb1c4)).
+* TensorSocket [0.0.5](https://pypi.org/project/tensorsocket/0.0.5/) from PyPI (commit [`ee231a2`](https://github.com/itu-rad/tensorsocket/commit/ee231a2449e7aa513a4c14fab7f1b35257cdb1c4), archived as [doi:10.5281/zenodo.23404632](https://doi.org/10.5281/zenodo.23404632)).
 * DCGM 3.3 (`dcgmi`, `nv-hostengine`) for SM activity, PCIe and NVLink counters.
 * The experiment harness (`harness/tsrepro`).
 
