@@ -70,7 +70,7 @@ We ran this package end to end on the paper's H100 server: 1× H100 PCIe 80 GB, 
 * The AWS g5 instances were emulated by restricting the container to 8, 16 and 32 CPUs.
 * All figures and tables of these runs are in `validation/h100_xena2_fast/` and `validation/h100_xena2_full/` (`REPORT.md` has every number next to the paper's).
 
-| | Claim | Paper | Ours | |
+| Result | Claim | Paper | Ours | Verdict |
 |---|---|---|---|---|
 | Fig. 8 | Sharing lowers CPU use | ResNet18 99 → 30% | 45 → 22% | ✅ |
 | Fig. 8 | Sharing raises throughput | ResNet18 +11%, MobileNet S ~2× | MobileNet S +33% | needs 4 GPUs |
