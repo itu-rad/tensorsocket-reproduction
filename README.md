@@ -4,6 +4,8 @@ This repository reproduces every experiment in
 
 > Ties Robroek, Neil Kim Nielsen, Pınar Tözün. **TensorSocket: Shared Data Loading for Deep Learning Training.** SIGMOD 2026. [doi:10.1145/3749185](https://doi.org/10.1145/3749185) ([arXiv:2409.18749](https://arxiv.org/abs/2409.18749))
 
+This package is archived on Zenodo: [doi:10.5281/zenodo.23404541](https://doi.org/10.5281/zenodo.23404541). The DOI always resolves to the latest version.
+
 TensorSocket itself lives at <https://github.com/itu-rad/tensorsocket>. This package pins it, includes the training scripts used in the paper (`workloads/`), wraps every experiment in Docker, and provides one command per figure or table to run it, collect and parse its data, and plot it.
 
 The paper's experiments were scheduled and tracked with [radT](https://github.com/itu-rad/radt), our MLflow-based tracking platform. This package does not use radT. Reproducing the paper also means running older codebases with their own pinned environments, such as CoorDL (Python 3.6, CUDA 10) and Joader, and setting up radT and an MLflow server around those would add work for every reviewer. Instead, a small custom wrapper based on radT (`harness/tsrepro`) runs each experiment in Docker and records the metrics the paper uses. It writes them in the MLflow export format with radT's metric names (`ML - Iterations/s`, `ML - Epoch`, ...), so the paper's analysis logic applies unchanged. The workload scripts still log through radT when they are run under it.
