@@ -1,0 +1,50 @@
+# CLMR (SampleCNN, contrastive) on LibriSpeech train-clean-100.
+# CLMR's config/config.yaml with the settings of the paper's runs: LibriSpeech,
+# batch size 24, GPU prefetching in the producer. Workers and epochs are set on
+# the command line by experiments/fig11_g5_clmr.csv.
+
+# infra
+gpus: 1
+accelerator: "gpu"
+workers: 8
+dataset_dir: "/data/librispeech"
+prefetch_loader: 1
+
+# train options
+seed: 42
+batch_size: 24
+max_epochs: 4
+dataset: "librispeech"
+supervised: 0
+
+# SimCLR model options
+projection_dim: 64
+
+# loss options
+optimizer: "Adam"
+learning_rate: 0.0003
+weight_decay: 1.0e-6
+temperature: 0.5
+
+# reload options
+checkpoint_path: ""
+
+# logistic regression options
+finetuner_mlp: 0
+finetuner_checkpoint_path: ""
+finetuner_max_epochs: 200
+finetuner_batch_size: 256
+finetuner_learning_rate: 0.001
+
+# audio data
+audio_length: 59049
+sample_rate: 22050
+
+# augmentations
+transforms_polarity: 0.8
+transforms_noise: 0.01
+transforms_gain: 0.3
+transforms_filters: 0.8
+transforms_delay: 0.3
+transforms_pitch: 0.6
+transforms_reverb: 0.6

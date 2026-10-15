@@ -1,0 +1,166 @@
+figure,group,label,x,metric,value,source
+fig08,legacy_seresnet18,Non-shared,,samples_per_s,1888.404,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,legacy_seresnet18,Non-shared,,cpu_util_pct,99.2838,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,legacy_seresnet18,Non-shared,,gpu_util_pct,71.7192,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,legacy_seresnet18,Shared,,samples_per_s,2102.2751,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,legacy_seresnet18,Shared,,cpu_util_pct,29.6344,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,legacy_seresnet18,Shared,,gpu_util_pct,79.6754,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_002,Non-shared,,samples_per_s,2062.5436,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_002,Non-shared,,cpu_util_pct,107.4477,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_002,Non-shared,,gpu_util_pct,40.2945,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_002,Shared,,samples_per_s,3020.3356,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_002,Shared,,cpu_util_pct,39.5246,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_002,Shared,,gpu_util_pct,58.7248,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_004,Non-shared,,samples_per_s,1576.6234,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_004,Non-shared,,cpu_util_pct,104.2722,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_004,Non-shared,,gpu_util_pct,43.5971,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_004,Shared,,samples_per_s,2292.4676,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_004,Shared,,cpu_util_pct,31.5202,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,regnetx_004,Shared,,gpu_util_pct,62.6392,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,tf_mobilenetv3_small_075,Non-shared,,samples_per_s,2060.4874,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,tf_mobilenetv3_small_075,Non-shared,,cpu_util_pct,106.2957,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,tf_mobilenetv3_small_075,Non-shared,,gpu_util_pct,33.7393,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,tf_mobilenetv3_small_075,Shared,,samples_per_s,3824.4511,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,tf_mobilenetv3_small_075,Shared,,cpu_util_pct,48.559,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,tf_mobilenetv3_small_075,Shared,,gpu_util_pct,63.6313,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,mobilenetv3_large_100,Non-shared,,samples_per_s,1433.1239,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,mobilenetv3_large_100,Non-shared,,cpu_util_pct,69.8999,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,mobilenetv3_large_100,Non-shared,,gpu_util_pct,65.1883,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,mobilenetv3_large_100,Shared,,samples_per_s,1514.6288,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,mobilenetv3_large_100,Shared,,cpu_util_pct,23.5265,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig08,mobilenetv3_large_100,Shared,,gpu_util_pct,69.4465,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Small,Non-shared,1,samples_per_s,3419.7557,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Small,Non-shared,2,samples_per_s,3224.133,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Small,Non-shared,3,samples_per_s,2761.0323,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Small,Non-shared,4,samples_per_s,2060.4874,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Small,Shared,1,samples_per_s,3912.1523,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Small,Shared,2,samples_per_s,3874.8122,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Small,Shared,3,samples_per_s,3915.1987,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Small,Shared,4,samples_per_s,3824.4511,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Large,Non-shared,1,samples_per_s,1469.7848,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Large,Non-shared,2,samples_per_s,1464.6625,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Large,Non-shared,3,samples_per_s,1443.5817,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Large,Non-shared,4,samples_per_s,1433.1239,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Large,Shared,1,samples_per_s,1566.2532,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Large,Shared,2,samples_per_s,1532.9655,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Large,Shared,3,samples_per_s,1520.1984,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig09,Large,Shared,4,samples_per_s,1514.6288,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.2xlarge,Non-shared,mps,samples_per_s,18.8697,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.2xlarge,Non-shared,no_mps,samples_per_s,18.6692,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.2xlarge,Shared,mps,samples_per_s,57.2022,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.2xlarge,Shared,no_mps,samples_per_s,50.0929,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.4xlarge,Non-shared,mps,samples_per_s,39.3321,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.4xlarge,Non-shared,no_mps,samples_per_s,38.6829,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.4xlarge,Shared,mps,samples_per_s,59.0377,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.4xlarge,Shared,no_mps,samples_per_s,50.5239,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.8xlarge,Non-shared,mps,samples_per_s,58.772,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.8xlarge,Non-shared,no_mps,samples_per_s,49.9645,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.8xlarge,Shared,mps,samples_per_s,59.073,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig11,g5.8xlarge,Shared,no_mps,samples_per_s,50.0554,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig12,,Non-shared,1,samples_per_s,595.6958,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig12,,Non-shared,2,samples_per_s,327.9613,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig12,,Non-shared,4,samples_per_s,162.7634,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig12,,Shared,1,samples_per_s,604.4458,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig12,,Shared,2,samples_per_s,359.8256,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig12,,Shared,4,samples_per_s,192.4458,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.2xlarge,Non-shared,,aggregate_samples_per_s,805.5931,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.2xlarge,Non-shared,,runtime_s,1176.24,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.2xlarge,Shared,,aggregate_samples_per_s,1365.1431,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.2xlarge,Shared,,runtime_s,691.397,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.4xlarge,Non-shared,,aggregate_samples_per_s,1548.4122,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.4xlarge,Non-shared,,runtime_s,672.307,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.4xlarge,Shared,,aggregate_samples_per_s,1454.5026,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.4xlarge,Shared,,runtime_s,664.221,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.8xlarge,Non-shared,,aggregate_samples_per_s,1581.6145,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.8xlarge,Non-shared,,runtime_s,660.705,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.8xlarge,Shared,,aggregate_samples_per_s,1456.7938,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig13,g5.8xlarge,Shared,,runtime_s,655.897,"original radT/MLflow export, aggregated as in the paper's plotting notebooks"
+fig10,,Default,,samples_per_s,2328.0605,values hard-coded in the paper's plotting notebook (visualize_flexible.ipynb)
+fig10,,Flexible,,samples_per_s,2332.1135,values hard-coded in the paper's plotting notebook (visualize_flexible.ipynb)
+fig10,,Default,,cpu_util_pct,45.1667,values hard-coded in the paper's plotting notebook (visualize_flexible.ipynb)
+fig10,,Flexible,,cpu_util_pct,46.8125,values hard-coded in the paper's plotting notebook (visualize_flexible.ipynb)
+fig14,,Baseline,1,norm_throughput,1.0,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,Baseline,2,norm_throughput,0.51,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,Baseline,3,norm_throughput,0.35,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,Baseline,4,norm_throughput,0.29,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,TensorSocket,1,norm_throughput,1.0,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,TensorSocket,2,norm_throughput,0.99,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,TensorSocket,3,norm_throughput,1.02,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,TensorSocket,4,norm_throughput,1.01,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,CoorDL,1,norm_throughput,1.0,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,CoorDL,2,norm_throughput,1.01,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,CoorDL,3,norm_throughput,1.01,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,CoorDL,4,norm_throughput,1.02,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,Baseline,1,norm_cpu,1.0,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,Baseline,2,norm_cpu,1.0162,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,Baseline,3,norm_cpu,1.01,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,Baseline,4,norm_cpu,1.03,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,TensorSocket,1,norm_cpu,1.0,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,TensorSocket,2,norm_cpu,1.0647,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,TensorSocket,3,norm_cpu,1.1255,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,TensorSocket,4,norm_cpu,1.1804,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,CoorDL,1,norm_cpu,1.0,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,CoorDL,2,norm_cpu,1.2023,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,CoorDL,3,norm_cpu,1.3925,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig14,,CoorDL,4,norm_cpu,1.5745,"normalised values plotted in Figure 14 (A100 runs, labelled 611-614 / 621-624 / coordl_1-4; the plotting notebook reads them from measurements/h100_joader/{throughput,top}.csv)"
+fig15,,Baseline,1,samples_per_s,1128.0023,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Baseline,2,samples_per_s,577.815,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Baseline,3,samples_per_s,391.9583,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Baseline,4,samples_per_s,295.7227,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Baseline,5,samples_per_s,222.8959,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Baseline,6,samples_per_s,187.2274,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Baseline,7,samples_per_s,159.714,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Baseline,8,samples_per_s,137.5915,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,TensorSocket,1,samples_per_s,1141.8131,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,TensorSocket,2,samples_per_s,1116.4017,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,TensorSocket,3,samples_per_s,1099.7566,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,TensorSocket,4,samples_per_s,1113.3616,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,TensorSocket,5,samples_per_s,1104.7097,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,TensorSocket,6,samples_per_s,1112.7476,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,TensorSocket,7,samples_per_s,1075.3401,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,TensorSocket,8,samples_per_s,965.2101,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Joader,1,samples_per_s,983.8025,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Joader,2,samples_per_s,733.8081,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Joader,3,samples_per_s,557.2601,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Joader,4,samples_per_s,437.9978,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Joader,5,samples_per_s,414.6816,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Joader,6,samples_per_s,374.9015,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Joader,7,samples_per_s,324.0889,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+fig15,,Joader,8,samples_per_s,287.3105,"median ML - Iterations/s per run, averaged per workload (measurements/h100_joader/median_local_iter_finalrun.csv)"
+tab03,Baseline,all,,io_MBps,613.0,Table 3 in the paper
+tab03,Baseline,GPU 0,,pcie_MBps,270.0,Table 3 in the paper
+tab03,Baseline,GPU 0,,vram_GB,8.5,Table 3 in the paper
+tab03,Baseline,GPU 1,,pcie_MBps,267.0,Table 3 in the paper
+tab03,Baseline,GPU 1,,vram_GB,8.5,Table 3 in the paper
+tab03,Baseline,GPU 2,,pcie_MBps,268.0,Table 3 in the paper
+tab03,Baseline,GPU 2,,vram_GB,8.5,Table 3 in the paper
+tab03,Baseline,GPU 3,,pcie_MBps,267.0,Table 3 in the paper
+tab03,Baseline,GPU 3,,vram_GB,8.5,Table 3 in the paper
+tab03,Shared,all,,io_MBps,161.0,Table 3 in the paper
+tab03,Shared,GPU 0,,pcie_MBps,286.0,Table 3 in the paper
+tab03,Shared,GPU 0,,vram_GB,9.8,Table 3 in the paper
+tab03,Shared,GPU 1,,pcie_MBps,23.0,Table 3 in the paper
+tab03,Shared,GPU 1,,vram_GB,8.5,Table 3 in the paper
+tab03,Shared,GPU 1,,nvlink_MBps,267.0,Table 3 in the paper
+tab03,Shared,GPU 2,,pcie_MBps,24.0,Table 3 in the paper
+tab03,Shared,GPU 2,,vram_GB,8.4,Table 3 in the paper
+tab03,Shared,GPU 2,,nvlink_MBps,269.0,Table 3 in the paper
+tab03,Shared,GPU 3,,pcie_MBps,23.0,Table 3 in the paper
+tab03,Shared,GPU 3,,vram_GB,8.4,Table 3 in the paper
+tab03,Shared,GPU 3,,nvlink_MBps,268.0,Table 3 in the paper
+tab04,Baseline,GPU 1,,tokens_per_s,7500.0,Table 4 in the paper
+tab04,Baseline,GPU 1,,pcie_MBps,48.0,Table 4 in the paper
+tab04,Baseline,GPU 1,,vram_GB,7.3,Table 4 in the paper
+tab04,Baseline,GPU 2,,tokens_per_s,7400.0,Table 4 in the paper
+tab04,Baseline,GPU 2,,pcie_MBps,48.0,Table 4 in the paper
+tab04,Baseline,GPU 2,,vram_GB,7.3,Table 4 in the paper
+tab04,Shared,GPU 0,,pcie_MBps,0.3,Table 4 in the paper
+tab04,Shared,GPU 0,,vram_GB,1.5,Table 4 in the paper
+tab04,Shared,GPU 1,,tokens_per_s,7500.0,Table 4 in the paper
+tab04,Shared,GPU 1,,pcie_MBps,48.0,Table 4 in the paper
+tab04,Shared,GPU 1,,nvlink_KBps,152.0,Table 4 in the paper
+tab04,Shared,GPU 1,,vram_GB,7.3,Table 4 in the paper
+tab04,Shared,GPU 2,,tokens_per_s,7600.0,Table 4 in the paper
+tab04,Shared,GPU 2,,pcie_MBps,48.0,Table 4 in the paper
+tab04,Shared,GPU 2,,nvlink_KBps,153.0,Table 4 in the paper
+tab04,Shared,GPU 2,,vram_GB,7.3,Table 4 in the paper

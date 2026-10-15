@@ -1,0 +1,68 @@
+# Qwen2.5 0.5B full fine-tuning on Alpaca (Table 4).
+#
+# torchtune 0.4.0's qwen2_5/0.5B_full_single_device recipe config with the
+# paper's settings: Alpaca (tatsu-lab/alpaca) and batch size 8. Two changes
+# are needed for sharing and applied to both the baseline and the shared runs:
+#   * sequences are padded to a fixed max_seq_len (TensorSocket's producer
+#     concatenates loader batches and reuses its GPU buffers, which requires
+#     equal shapes), and
+#   * metrics go to the tsrepro tracker instead of torchtune's DiskLogger.
+#
+# Download the model first (reproduce.sh prepare qwen):
+#   tune download Qwen/Qwen2.5-0.5B-Instruct --output-dir /data/models/Qwen2.5-0.5B-Instruct --ignore-patterns None
+
+model:
+  _component_: torchtune.models.qwen2_5.qwen2_5_0_5b
+
+tokenizer:
+  _component_: torchtune.models.qwen2_5.qwen2_5_tokenizer
+  path: /data/models/Qwen2.5-0.5B-Instruct/vocab.json
+  merges_file: /data/models/Qwen2.5-0.5B-Instruct/merges.txt
+  max_seq_len: 512
+
+checkpointer:
+  _component_: torchtune.training.FullModelHFCheckpointer
+  checkpoint_dir: /data/models/Qwen2.5-0.5B-Instruct
+  checkpoint_files: [model.safetensors]
+  recipe_checkpoint: null
+  output_dir: /tmp/tsrepro-llm
+  model_type: QWEN2
+resume_from_checkpoint: False
+
+dataset:
+  _component_: torchtune.datasets.alpaca_dataset
+  packed: False
+seed: null
+shuffle: True
+collate_fn: collate.padded_collate_fixed
+
+epochs: 1
+max_steps_per_epoch: null
+batch_size: 8
+gradient_accumulation_steps: 8
+optimizer:
+  _component_: torch.optim.AdamW
+  fused: True
+  lr: 2e-5
+optimizer_in_bwd: False
+loss:
+  _component_: torchtune.modules.loss.CEWithChunkedOutputLoss
+
+device: cuda
+
+enable_activation_checkpointing: False
+enable_activation_offloading: False
+dtype: bf16
+compile: False
+
+output_dir: /tmp/tsrepro-llm
+metric_logger:
+  _component_: tsrepro_logger.TsreproLogger
+log_every_n_steps: 1
+log_peak_memory_stats: True
+
+profiler:
+  _component_: torchtune.training.setup_torch_profiler
+  enabled: False
+
+shared_loader: False

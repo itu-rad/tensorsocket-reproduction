@@ -1,0 +1,8 @@
+.git
+results
+results_fast
+figures_fast
+data
+figures
+**/__pycache__
+**/*.pyc

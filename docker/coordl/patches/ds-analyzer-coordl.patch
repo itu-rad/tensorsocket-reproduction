@@ -1,0 +1,38 @@
+--- a/tasks/image-classification/hyperparam_imagenet_dali_mp.py	2026-10-15 15:43:41
++++ b/tasks/image-classification/hyperparam_imagenet_dali_mp.py	2026-10-15 16:56:58
+@@ -289,7 +289,7 @@
+ 
+ if args.unified:
+     try:
+-        from nvidia.dali.plugin.pytorch_neuralcache import DALIUnifiedClassificationIterator
++        from nvidia.dali.plugin.pytorch_coordl import DALIUnifiedClassificationIterator
+     except ImportError:
+         raise ImportError("Please install DALI from https://www.github.com/NVIDIA/DALI to run this example.")
+ 
+@@ -319,7 +319,7 @@
+ 
+ if args.unified:
+     try:
+-        from nvidia.dali.plugin.pytorch_neuralcache import DALIUnifiedClassificationIterator
++        from nvidia.dali.plugin.pytorch_coordl import DALIUnifiedClassificationIterator
+     except ImportError:
+         raise ImportError("Please install DALI from https://www.github.com/NVIDIA/DALI to run this example.")
+ 
+@@ -597,7 +597,7 @@
+ 
+         # log timing
+         if args.local_rank == 0 and epoch == 0:
+-            os.system("swapoff -a")
++            pass  # swapoff -a: not permitted (nor wanted) inside a container
+             os.system("free -g") 
+             print("STARTING EPOCH {}".format(epoch))
+         start_ep = time.time()
+@@ -890,7 +890,7 @@
+ 
+     res = []
+     for k in topk:
+-        correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
++        correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)  # view() fails on non-contiguous slices in newer PyTorch
+         res.append(correct_k.mul_(100.0 / batch_size))
+     return res
+ 

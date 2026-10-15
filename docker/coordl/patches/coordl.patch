@@ -1,0 +1,34 @@
+diff --git a/dali/python/nvidia/dali/plugin/pytorch_coordl.py b/dali/python/nvidia/dali/plugin/pytorch_coordl.py
+index 87b00956..1869f738 100644
+--- a/dali/python/nvidia/dali/plugin/pytorch_coordl.py
++++ b/dali/python/nvidia/dali/plugin/pytorch_coordl.py
+@@ -27,12 +27,12 @@ from nvidia.dali.backend import TensorListGPU
+ import math
+ import numpy as np
+ import threading
+-#import Queue
++# import Queue
+ from torch._six import queue, container_abcs, string_classes
+ import multiprocessing 
+ import os
+-#import pin_util
+-import batch_util
++# import pin_util
++import nvidia.dali.plugin.batch_util
+ import sys
+ import time
+ TIMEOUT = 5.0
+diff --git a/docker/build.sh b/docker/build.sh
+index ef65589e..053fcc6f 100755
+--- a/docker/build.sh
++++ b/docker/build.sh
+@@ -197,7 +197,8 @@ if [ "$CREATE_RUNNER" == "YES" ]; then
+     if [ ${CUDA_VERSION} == "9" ] ; then
+         export CUDA_IMAGE_NAME="nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04"
+     elif [ ${CUDA_VERSION} == "10" ] ; then
+-        export CUDA_IMAGE_NAME="nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04"
++        # export CUDA_IMAGE_NAME="nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04"
++        export CUDA_IMAGE_NAME="sulfurheron/nvidia-cuda:10.0-cudnn7-devel-ubuntu16.04-2019-07-29"
+     else
+         echo "**************************************************************"
+         echo "Not supported CUDA version"

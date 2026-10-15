@@ -1,0 +1,11 @@
+mode,gpu,metric,reproduced,paper,ratio
+Baseline,model 1,tokens_per_s,4897.568359375,7500.0,0.6530091145833333
+Baseline,model 2,tokens_per_s,4893.4306640625,7400.0,0.6612744140625
+Baseline,GPU 0,pcie_MBps,125.22306782178217,,
+Baseline,GPU 0,nvlink_KBps,0.0,,
+Baseline,GPU 0,vram_GB,30.013671875,,
+Shared,model 1,tokens_per_s,4885.365234375,7500.0,0.65138203125
+Shared,model 2,tokens_per_s,4901.9306640625,7600.0,0.644990876850329
+Shared,GPU 0,pcie_MBps,125.33677824752475,0.3,417.7892608250825
+Shared,GPU 0,nvlink_KBps,0.0,,
+Shared,GPU 0,vram_GB,30.4580078125,1.5,20.305338541666668

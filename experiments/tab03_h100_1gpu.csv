@@ -1,0 +1,20 @@
+# Single-GPU stand-in for experiments/tab03_a100_data_movement.csv, for machines without the paper's 4-GPU
+# NVLink A100 server: the same processes, all on GPU 0, sharing it via MPS
+# (as in the paper's single-GPU H100 experiments). It shows the CPU-side effect
+# of sharing but not GPU-to-GPU (NVLink) transfer. Results are labelled as such.
+# Table 3: disk I/O, PCIe, NVLink and GPU memory for 4x MobileNet L on the A100
+# server (same configuration as fig08 w6 / w61). reproduce.sh evicts ImageNet
+# from the page cache before each workload and caps container memory so the
+# dataset cannot be cached, making the I/O column measure storage reads.
+#! epochs=2
+#! fast_duration=240
+workload,role,devices,collocation,file,params
+6,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model mobilenetv3_large_100 --shared-loader 0
+6,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model mobilenetv3_large_100 --shared-loader 0
+6,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model mobilenetv3_large_100 --shared-loader 0
+6,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model mobilenetv3_large_100 --shared-loader 0
+61,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 48 --gpu-prefetch 1
+61,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model mobilenetv3_large_100 --shared-loader 1
+61,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model mobilenetv3_large_100 --shared-loader 1
+61,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model mobilenetv3_large_100 --shared-loader 1
+61,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model mobilenetv3_large_100 --shared-loader 1

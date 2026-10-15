@@ -1,0 +1,10 @@
+results/
+results_fast/
+figures/
+figures_fast/
+data/
+docker/coordl/.build/
+docker/coordl/*.whl
+__pycache__/
+*.pyc
+docker/coordl/*.whl.part

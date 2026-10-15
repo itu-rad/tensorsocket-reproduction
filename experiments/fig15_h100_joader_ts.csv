@@ -1,0 +1,91 @@
+# Figure 15 (baseline and TensorSocket): 1-8 MobileNet Small models sharing one
+# H100 via MPS with 8 data-loading workers in total. w31k: baseline with k
+# models (workers split as evenly as possible); w32k: TensorSocket with k
+# consumers. The Joader side runs in the joader image: fig15_h100_joader.csv.
+# Figure 15 reports the median per-iteration throughput, so each workload is
+# stopped after `duration` seconds (the 8-way baseline would otherwise need
+# about 8 h for 3 epochs); use --duration 0 to run all epochs.
+#! epochs=3
+#! fast_duration=50
+#! duration=1200
+workload,role,devices,collocation,file,params
+311,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --model tf_mobilenetv3_small_075 --shared-loader 0
+312,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 4 --model tf_mobilenetv3_small_075 --shared-loader 0
+312,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 4 --model tf_mobilenetv3_small_075 --shared-loader 0
+313,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+313,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 3 --model tf_mobilenetv3_small_075 --shared-loader 0
+313,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 3 --model tf_mobilenetv3_small_075 --shared-loader 0
+314,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+314,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+314,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+314,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+315,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+315,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+315,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+315,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+315,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+316,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+316,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+316,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+316,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+316,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+316,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+317,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+317,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+317,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+317,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+317,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+317,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+317,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0
+318,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+318,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+318,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+318,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+318,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+318,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+318,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+318,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 0
+321,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --gpu-prefetch 1
+321,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+322,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --gpu-prefetch 1
+322,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+322,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+323,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --gpu-prefetch 1
+323,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+323,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+323,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+324,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --gpu-prefetch 1
+324,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+324,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+324,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+324,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+325,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --gpu-prefetch 1
+325,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+325,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+325,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+325,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+325,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+326,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --gpu-prefetch 1
+326,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+326,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+326,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+326,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+326,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+326,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+327,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --gpu-prefetch 1
+327,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+327,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+327,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+327,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+327,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+327,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+327,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+328,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 8 --gpu-prefetch 1
+328,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+328,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+328,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+328,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+328,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+328,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+328,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+328,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1

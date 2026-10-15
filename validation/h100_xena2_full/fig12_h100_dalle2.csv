@@ -1,0 +1,13 @@
+mode,degree,metric,reproduced,paper,ratio
+Non-shared,1,samples_per_s,534.4288447156176,595.6958,0.8971506005508477
+Non-shared,1,wallclock_samples_per_s,515.9138394279239,,
+Non-shared,2,samples_per_s,284.21812244687163,327.9613,0.8666209166961822
+Non-shared,2,wallclock_samples_per_s,278.6757803035374,,
+Non-shared,4,samples_per_s,141.3772509522658,162.7634,0.8686059086518579
+Non-shared,4,wallclock_samples_per_s,139.83816213714618,,
+Shared,1,samples_per_s,558.4922478719078,604.4458,0.9239740732285804
+Shared,1,wallclock_samples_per_s,524.0531450665618,,
+Shared,2,samples_per_s,303.5624429045457,359.8256,0.8436377036668478
+Shared,2,wallclock_samples_per_s,292.94654716822185,,
+Shared,4,samples_per_s,155.87568669531504,192.4458,0.8099718814092853
+Shared,4,wallclock_samples_per_s,152.42548401321048,,

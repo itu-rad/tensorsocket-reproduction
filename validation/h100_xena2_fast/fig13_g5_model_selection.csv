@@ -1,0 +1,13 @@
+instance,mode,metric,reproduced,paper,ratio
+g5.2xlarge,Non-shared,aggregate_samples_per_s,1305.5188662767353,805.5931,1.620568580188603
+g5.2xlarge,Non-shared,runtime_s,128.347,1176.24,0.1091163368020132
+g5.2xlarge,Shared,aggregate_samples_per_s,1839.9508999564537,1365.1431,1.3478080795752867
+g5.2xlarge,Shared,runtime_s,145.717,691.397,0.2107573506972116
+g5.4xlarge,Non-shared,aggregate_samples_per_s,2136.9822285789232,1548.4122,1.380111980891731
+g5.4xlarge,Non-shared,runtime_s,128.363,672.307,0.19092914397737937
+g5.4xlarge,Shared,aggregate_samples_per_s,2635.528267937326,1454.5026,1.8119790696402507
+g5.4xlarge,Shared,runtime_s,145.557,664.221,0.219139412936357
+g5.8xlarge,Non-shared,aggregate_samples_per_s,3606.8664170162433,1581.6145,2.280496554006203
+g5.8xlarge,Non-shared,runtime_s,128.408,660.705,0.19434997464829232
+g5.8xlarge,Shared,aggregate_samples_per_s,3632.405440825697,1456.7938,2.4934245607207397
+g5.8xlarge,Shared,runtime_s,145.554,655.897,0.22191594107001555

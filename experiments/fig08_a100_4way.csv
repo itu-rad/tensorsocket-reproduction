@@ -1,0 +1,52 @@
+# Figure 8: image classification on the A100 server with 4-way collocation
+# (one model per GPU) with (w{i}1) and without (w{i}) TensorSocket.
+# Non-shared: 12 workers per model (48 total). Shared: producer with 48 workers on GPU 0.
+# Hardware: 4x A100 (NVLink), container restricted to 48 cores. Run on GPUs 0-3.
+#! epochs=3
+#! fast_duration=60
+workload,role,devices,collocation,file,params
+1,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model legacy_seresnet18 --shared-loader 0
+1,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model legacy_seresnet18 --shared-loader 0
+1,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model legacy_seresnet18 --shared-loader 0
+1,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model legacy_seresnet18 --shared-loader 0
+11,producer,0,-,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 48 --gpu-prefetch 1
+11,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model legacy_seresnet18 --shared-loader 1
+11,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model legacy_seresnet18 --shared-loader 1
+11,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model legacy_seresnet18 --shared-loader 1
+11,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model legacy_seresnet18 --shared-loader 1
+2,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model regnetx_002 --shared-loader 0
+2,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model regnetx_002 --shared-loader 0
+2,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model regnetx_002 --shared-loader 0
+2,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model regnetx_002 --shared-loader 0
+21,producer,0,-,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 48 --gpu-prefetch 1
+21,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_002 --shared-loader 1
+21,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_002 --shared-loader 1
+21,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_002 --shared-loader 1
+21,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_002 --shared-loader 1
+3,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model regnetx_004 --shared-loader 0
+3,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model regnetx_004 --shared-loader 0
+3,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model regnetx_004 --shared-loader 0
+3,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model regnetx_004 --shared-loader 0
+31,producer,0,-,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 48 --gpu-prefetch 1
+31,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_004 --shared-loader 1
+31,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_004 --shared-loader 1
+31,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_004 --shared-loader 1
+31,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_004 --shared-loader 1
+5,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model tf_mobilenetv3_small_075 --shared-loader 0
+5,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model tf_mobilenetv3_small_075 --shared-loader 0
+5,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model tf_mobilenetv3_small_075 --shared-loader 0
+5,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model tf_mobilenetv3_small_075 --shared-loader 0
+51,producer,0,-,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 48 --gpu-prefetch 1
+51,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+51,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+51,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+51,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1
+6,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model mobilenetv3_large_100 --shared-loader 0
+6,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model mobilenetv3_large_100 --shared-loader 0
+6,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model mobilenetv3_large_100 --shared-loader 0
+6,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 12 --model mobilenetv3_large_100 --shared-loader 0
+61,producer,0,-,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 48 --gpu-prefetch 1
+61,train,0,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model mobilenetv3_large_100 --shared-loader 1
+61,train,1,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model mobilenetv3_large_100 --shared-loader 1
+61,train,2,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model mobilenetv3_large_100 --shared-loader 1
+61,train,3,-,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model mobilenetv3_large_100 --shared-loader 1

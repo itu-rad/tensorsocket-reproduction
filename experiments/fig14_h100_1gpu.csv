@@ -1,0 +1,40 @@
+# Single-GPU stand-in for experiments/fig14_a100_coordl_ts.csv, for machines without the paper's 4-GPU
+# NVLink A100 server: the same processes, all on GPU 0, sharing it via MPS
+# (as in the paper's single-GPU H100 experiments). It shows the CPU-side effect
+# of sharing but not GPU-to-GPU (NVLink) transfer. Results are labelled as such.
+# With all models on one GPU, the producer keeps 4 instead of 10 batches of 4096
+# images per consumer on the GPU (--consumer-buffer 2); otherwise 4x ResNet18 at
+# batch size 512 plus the producer's buffers exceed 80 GB.
+# Figure 14 (baseline and TensorSocket): ResNet18 on the A100 server, one model
+# per GPU, 1-4 models, 4 data-loading workers in total, batch size 512, no AMP
+# (CoorDL's evaluation settings). w610-613: baseline; w620-623: TensorSocket.
+# The CoorDL side runs in its own image: experiments/fig14_a100_coordl.sh.
+# Batch size 512: throughput is logged every 10 batches (timm default: 50) so
+# that short runs of the data-starved baselines still yield measurements.
+#! epochs=3
+#! fast_duration=75
+workload,role,devices,collocation,file,params
+610,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 4 --model resnet18 --shared-loader 0 --log-interval 10
+611,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 2 --model resnet18 --shared-loader 0 --log-interval 10
+611,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 2 --model resnet18 --shared-loader 0 --log-interval 10
+612,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 2 --model resnet18 --shared-loader 0 --log-interval 10
+612,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 0 --log-interval 10
+612,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 0 --log-interval 10
+613,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 0 --log-interval 10
+613,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 0 --log-interval 10
+613,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 0 --log-interval 10
+613,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 0 --log-interval 10
+620,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 4 --gpu-prefetch 1 --consumer-buffer 2
+620,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+621,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 4 --gpu-prefetch 1 --consumer-buffer 2
+621,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+621,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+622,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 4 --gpu-prefetch 1 --consumer-buffer 2
+622,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+622,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+622,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+623,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 4 --gpu-prefetch 1 --consumer-buffer 2
+623,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+623,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+623,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10
+623,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 512 --workers 1 --model resnet18 --shared-loader 1 --log-interval 10

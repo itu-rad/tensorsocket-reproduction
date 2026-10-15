@@ -1,0 +1,18 @@
+# Single-GPU stand-in for experiments/tab04_a100_llm.csv, for machines without the paper's 4-GPU
+# NVLink A100 server: the same processes, all on GPU 0, sharing it via MPS
+# (as in the paper's single-GPU H100 experiments). It shows the CPU-side effect
+# of sharing but not GPU-to-GPU (NVLink) transfer. Results are labelled as such.
+# Table 4: Qwen2.5 0.5B full fine-tuning (torchtune 0.4.0, Alpaca, batch size 8)
+# on the A100 server. w1 (baseline): one model on each of GPUs 1 and 2 with its
+# own data loader. w101 (shared): the producer runs on GPU 0 and shares batches
+# with the models on GPUs 1 and 2 over NVLink.
+# max_steps limits optimizer steps per epoch (null: the full Alpaca epoch).
+#! epochs=1
+#! fast_duration=300
+#! max_steps='null'
+workload,role,devices,collocation,file,params
+1,train,0,mps,workloads/llm/train.py,--config config.yaml epochs={epochs} max_steps_per_epoch={max_steps}
+1,train,0,mps,workloads/llm/train.py,--config config.yaml epochs={epochs} max_steps_per_epoch={max_steps}
+101,producer,0,mps,workloads/llm/producer.py,--config config.yaml epochs={epochs} max_steps_per_epoch={max_steps}
+101,train,0,mps,workloads/llm/train.py,--config config.yaml epochs={epochs} max_steps_per_epoch={max_steps} shared_loader=True
+101,train,0,mps,workloads/llm/train.py,--config config.yaml epochs={epochs} max_steps_per_epoch={max_steps} shared_loader=True

@@ -1,0 +1,15 @@
+# Figure 10: three MobileNet Small models sharing one H100 via MPS.
+# w100 (Default): producer and consumers use batch size 128.
+# w105 (Flexible): producer loader batch 32 (producer batch = 8 x 32 = 256),
+# consumers request 128, 192 and 224.
+#! epochs=3
+#! fast_duration=300
+workload,role,devices,collocation,file,params
+100,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers {ncpu} --gpu-prefetch 1 --batch-size 128
+100,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1 --batch-size 128
+100,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1 --batch-size 128
+100,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1 --batch-size 128
+105,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers {ncpu} --gpu-prefetch 1 --batch-size 32
+105,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1 --batch-size 128
+105,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1 --batch-size 192
+105,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1 --batch-size 224

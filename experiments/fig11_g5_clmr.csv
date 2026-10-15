@@ -1,0 +1,44 @@
+# Figure 11: CLMR (audio, LibriSpeech) with k = 1, 2, 4 collocated models on the
+# single A10G GPU of AWS g5.{2,4,8}xlarge (8/16/32 vCPUs). The figure shows k = 4.
+# w1-w4 / w101-w104: non-shared / shared with default GPU time-slicing
+#   (the paper's "multi-streams" bars);
+# w201-w204 / w301-w304: the same under MPS (the paper's blurred bars).
+# Non-shared: vCPUs split equally across models; shared: producer uses all vCPUs.
+# Run once per instance size with --tag g5.2xlarge / g5.4xlarge / g5.8xlarge.
+#! epochs=4
+#! fast_duration=240
+workload,role,devices,collocation,file,params
+1,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//1} --shared-loader 0
+2,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//2} --shared-loader 0
+2,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//2} --shared-loader 0
+4,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//4} --shared-loader 0
+4,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//4} --shared-loader 0
+4,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//4} --shared-loader 0
+4,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//4} --shared-loader 0
+101,producer,0,-,workloads/clmr/producer.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu}
+101,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+102,producer,0,-,workloads/clmr/producer.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu}
+102,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+102,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+104,producer,0,-,workloads/clmr/producer.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu}
+104,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+104,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+104,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+104,train,0,-,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+201,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//1} --shared-loader 0
+202,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//2} --shared-loader 0
+202,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//2} --shared-loader 0
+204,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//4} --shared-loader 0
+204,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//4} --shared-loader 0
+204,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//4} --shared-loader 0
+204,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu//4} --shared-loader 0
+301,producer,0,mps,workloads/clmr/producer.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu}
+301,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+302,producer,0,mps,workloads/clmr/producer.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu}
+302,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+302,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+304,producer,0,mps,workloads/clmr/producer.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers {ncpu}
+304,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+304,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+304,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1
+304,train,0,mps,workloads/clmr/train.py,config/librispeech.yaml --dataset_dir {LIBRISPEECH} --max_epochs {epochs} --workers 1 --shared-loader 1

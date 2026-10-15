@@ -1,0 +1,56 @@
+# Figure 15 (Joader): 1-8 MobileNet Small models fed by one Joader server on the
+# H100 (MPS). Runs in the joader image (reproduce.sh fig15-joader).
+# Like the baseline and TensorSocket (8 data-loading workers in total), the Joader
+# server gets 8 CPUs: 8 tokio threads, pinned to 8 cores (serve.sh).
+# Figure 15 reports the median per-iteration throughput, so each workload is
+# stopped after `duration` seconds (the 8-way baseline would otherwise need
+# about 8 h for 3 epochs); use --duration 0 to run all epochs.
+#! epochs=3
+#! fast_duration=90
+#! duration=1200
+#! startup_delay=120
+workload,role,devices,collocation,file,params
+301,service,0,mps,workloads/joader/serve.sh,{IMAGENET_JOADER} 8
+301,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+302,service,0,mps,workloads/joader/serve.sh,{IMAGENET_JOADER} 8
+302,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+302,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+303,service,0,mps,workloads/joader/serve.sh,{IMAGENET_JOADER} 8
+303,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+303,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+303,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+304,service,0,mps,workloads/joader/serve.sh,{IMAGENET_JOADER} 8
+304,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+304,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+304,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+304,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+305,service,0,mps,workloads/joader/serve.sh,{IMAGENET_JOADER} 8
+305,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+305,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+305,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+305,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+305,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+306,service,0,mps,workloads/joader/serve.sh,{IMAGENET_JOADER} 8
+306,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+306,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+306,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+306,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+306,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+306,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+307,service,0,mps,workloads/joader/serve.sh,{IMAGENET_JOADER} 8
+307,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+307,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+307,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+307,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+307,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+307,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+307,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+308,service,0,mps,workloads/joader/serve.sh,{IMAGENET_JOADER} 8
+308,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+308,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+308,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+308,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+308,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+308,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+308,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1
+308,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --workers 1 --model tf_mobilenetv3_small_075 --joader 1

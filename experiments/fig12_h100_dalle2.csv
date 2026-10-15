@@ -1,0 +1,24 @@
+# Figure 12: online DALL-E 2 diffusion-prior training (CLIP ViT-B/32 embeddings
+# computed during training) on CC3M, 1-, 2- and 4-way collocated on the H100 via MPS.
+# w11/w22/w44: non-shared (each process loads data and runs CLIP);
+# w111/w122/w144: shared (the producer loads data and runs CLIP once).
+#! epochs=5
+#! fast_duration=150
+workload,role,devices,collocation,file,params
+11,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu//1} --shared-loader 0
+22,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu//2} --shared-loader 0
+22,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu//2} --shared-loader 0
+44,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu//4} --shared-loader 0
+44,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu//4} --shared-loader 0
+44,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu//4} --shared-loader 0
+44,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu//4} --shared-loader 0
+111,producer,0,mps,workloads/dalle2/producer.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu}
+111,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers 1 --shared-loader 1
+122,producer,0,mps,workloads/dalle2/producer.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu}
+122,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers 1 --shared-loader 1
+122,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers 1 --shared-loader 1
+144,producer,0,mps,workloads/dalle2/producer.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers {ncpu}
+144,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers 1 --shared-loader 1
+144,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers 1 --shared-loader 1
+144,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers 1 --shared-loader 1
+144,train,0,mps,workloads/dalle2/train.py,--config configs/prior_online.json --cc3m {CC3M} --epochs {epochs} --workers 1 --shared-loader 1

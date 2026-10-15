@@ -1,0 +1,12 @@
+# Figure 13: mixed workload (RegNetX 2 + RegNetX 4) collocated on the single
+# A10G GPU of AWS g5.{2,4,8}xlarge (8/16/32 vCPUs), on the 10% ImageNet subset.
+# w1: non-shared (vCPUs split equally); w101: shared (producer uses all vCPUs).
+# Run once per instance size with --tag g5.2xlarge / g5.4xlarge / g5.8xlarge.
+#! epochs=4
+#! fast_duration=300
+workload,role,devices,collocation,file,params
+1,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET_10PCT} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers {ncpu//2} --model regnetx_002 --shared-loader 0
+1,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET_10PCT} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers {ncpu//2} --model regnetx_004 --shared-loader 0
+101,producer,0,mps,workloads/timm/producer.py,--data-dir {IMAGENET_10PCT} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers {ncpu} --gpu-prefetch 1
+101,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET_10PCT} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_002 --shared-loader 1
+101,train,0,mps,workloads/timm/train.py,--data-dir {IMAGENET_10PCT} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --workers 1 --model regnetx_004 --shared-loader 1

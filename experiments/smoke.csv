@@ -1,0 +1,12 @@
+# Smoke test: checks the toolchain end to end in minutes on a synthetic
+# ImageNet-shaped dataset (datasets/make_synthetic_imagenet.py).
+# w1: two models with their own data loaders; w2: the same two models fed by
+# one TensorSocket producer. Numbers are not comparable to the paper.
+#! epochs=2
+#! device='cuda'
+workload,role,devices,collocation,file,params
+1,train,0,-,workloads/timm/train.py,--data-dir {SMOKE_DATA} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 16 --log-interval 1 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0 --device {device}
+1,train,0,-,workloads/timm/train.py,--data-dir {SMOKE_DATA} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 16 --log-interval 1 --workers 2 --model tf_mobilenetv3_small_075 --shared-loader 0 --device {device}
+2,producer,0,-,workloads/timm/producer.py,--data-dir {SMOKE_DATA} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --batch-size 16 --workers 4 --gpu-prefetch 1
+2,train,0,-,workloads/timm/train.py,--data-dir {SMOKE_DATA} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 16 --log-interval 1 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1 --device {device}
+2,train,0,-,workloads/timm/train.py,--data-dir {SMOKE_DATA} --epochs {epochs} --skip-validation --output /tmp/tsrepro-out --warmup-epochs 0 --batch-size 16 --log-interval 1 --workers 1 --model tf_mobilenetv3_small_075 --shared-loader 1 --device {device}
