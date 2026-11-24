@@ -29,6 +29,7 @@ case "$VARIANT" in
     *) echo "unknown COORDL_VARIANT=$VARIANT" >&2; exit 2 ;;
 esac
 OUT_ROOT="${TSREPRO_RESULTS:-/workspace/results}/$EXP/$TAG"
+failed=()
 
 for rep in $(seq 0 $((REPEATS - 1))); do
     for n in $JOBS; do
@@ -43,33 +44,46 @@ for rep in $(seq 0 $((REPEATS - 1))); do
         # path stalls in its set-up with one job; it then runs CoorDL's DALI pipeline alone.
         coordination=(--unified --pin)
         [ "$n" -eq 1 ] && coordination=()
-        python -O "$SCRIPT" -a resnet18 -j 4 -b 512 --epochs "$EPOCHS" \
+        # Own process group: the script's spawned workers are not matched by its
+        # name, and a surviving worker keeps the rendezvous port of the next run.
+        setsid python -O "$SCRIPT" -a resnet18 -j 4 -b 512 --epochs "$EPOCHS" \
             --dist --num_jobs "$n" --dali_cpu "${coordination[@]}" --noeval "$IMAGENET" > "$out/log.txt" 2>&1 &
         job=$!
         if [ -n "${FAST_SECONDS:-}" ]; then
             # Count FAST_SECONDS from the first logged iteration: start-up (file
-            # indexing, CUDA JIT on new GPUs) varies a lot between runs.
+            # indexing, and CUDA JIT on new GPUs, ~40 min when the kernel cache is
+            # cold, e.g. after a driver update) varies a lot between runs.
             waited=0
-            until grep -q "Speed" "$out/log.txt" || ! kill -0 "$job" 2>/dev/null || [ "$waited" -ge 1800 ]; do
+            until grep -q "Speed" "$out/log.txt" || ! kill -0 "$job" 2>/dev/null || [ "$waited" -ge 3600 ]; do
                 sleep 5; waited=$((waited + 5))
             done
             elapsed=0
             while kill -0 "$job" 2>/dev/null && [ "$elapsed" -lt "$FAST_SECONDS" ]; do
                 sleep 5; elapsed=$((elapsed + 5))
             done
-            kill "$job" 2>/dev/null
+            kill -- -"$job" 2>/dev/null
         fi
         wait "$job"
         status=$?
+        kill -- -"$job" 2>/dev/null
         kill "$top_pid" 2>/dev/null
         echo "{\"jobs\": $n, \"variant\": \"$VARIANT\", \"status\": $status, \"seconds\": $(( $(date +%s) - start )), \"ncpu\": $(nproc)}" > "$out/meta.json"
         grep "##Perf" "$out/log.txt" || tail -20 "$out/log.txt"
         # In fast mode the run is stopped on purpose; it counts if it logged iterations.
         if [ "$status" -eq 0 ] || { [ -n "${FAST_SECONDS:-}" ] && grep -q "Speed" "$out/log.txt"; }; then
             touch "$out/done"
+        else
+            failed+=("n$n/rep$rep")
         fi
-        # Jobs of a stopped run can outlive the parent; clear them before the next run.
-        pkill -f "$SCRIPT" 2>/dev/null; sleep 5
-        [ -n "${HOST_UID:-}" ] && chown -R "$HOST_UID:${HOST_GID:-$HOST_UID}" "$OUT_ROOT"
+        # Wait for the group to exit and release the rendezvous port.
+        for _ in $(seq 60); do pgrep -g "$job" >/dev/null || break; sleep 1; done
+        kill -9 -- -"$job" 2>/dev/null; sleep 5
+        # The experiment directory above OUT_ROOT is created as root too.
+        [ -n "${HOST_UID:-}" ] && chown -R "$HOST_UID:${HOST_GID:-$HOST_UID}" "$(dirname "$OUT_ROOT")"
     done
 done
+
+if [ ${#failed[@]} -gt 0 ]; then
+    echo "CoorDL runs without results: ${failed[*]}" >&2
+    exit 1
+fi
