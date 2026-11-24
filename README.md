@@ -262,7 +262,7 @@ export DATA_DIR=/path/to/datasets            # and GPUS=0,1,2,4 on a DGX Station
 ./reproduce.sh build llm && ./reproduce.sh prepare qwen
 ./reproduce.sh run tab04                     # Table 4    (2 workloads; GPUs 0-2)
 ./reproduce.sh run fig14 --repeats 2         # Figure 14, baseline + TensorSocket (8 workloads)
-./reproduce.sh build coordl                  # see Section 8.3
+./reproduce.sh build coordl                  # see Section 8.2
 ./reproduce.sh run fig14-coordl              # Figure 14, CoorDL (1-4 jobs)
 ```
 
@@ -360,7 +360,7 @@ Figure 14 normalizes throughput and CPU utilization by the 1-model value of each
 The SIGMOD reproducibility guidelines ask: *"If the submitted scripts do not reproduce some figures, add a concrete explanation as to why the core thesis of the paper can be verified without the missing experiments."* The scripts in this package reproduce every figure and table of the paper, with the following exceptions.
 
 * **Figure 1** surveys the GPU instance types offered by AWS, Azure and GCP on 2023-11-30. Offerings change over time, so the survey is not re-collected; its counts are in `paper_results/cloud_instances.csv`, and `./reproduce.sh plot fig01` redraws the figure.
-* **The two external baselines**, CoorDL (Figure 14) and Joader (Figure 15), are older research prototypes. Both are included and run (`fig14-coordl`, `fig15-joader`), but with the caveats in Sections 8.3 and 8.4.
+* **The two external baselines**, CoorDL (Figure 14) and Joader (Figure 15), are older research prototypes. Both are included and run (`fig14-coordl`, `fig15-joader`), but with the caveats in Sections 8.2 and 8.3.
 
 The core claims of the paper can still be verified:
 
